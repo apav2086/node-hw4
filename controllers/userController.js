@@ -23,7 +23,7 @@ const userController = {
             res.json(err);
         }
     },
-     async login(req, res) {
+    async login(req, res) {
         try {
             const { email, password } = req.body;
             const singleUser = await User.findOne({ email: email });
@@ -41,20 +41,29 @@ const userController = {
                 expiresIn: '1h',
             });
             req.session.userToken = token;
-            res.json({ token});
+            res.json({ token });
 
         } catch (err) {
             console.log(err);
             res.json(err);
         }
     },
-     async logout(req, res) {
+    async logout(req, res) {
         if (req.session.userToken) {
             req.session.destroy(() => {
                 res.json({ message: 'User was signed out' });
             })
         } else {
-            res.json({message: 'User is already signed out'})
+            res.json({ message: 'User is already signed out' })
+        }
+    },
+    async current(req, res) {
+        const { email, subscription } = req.body;
+        if (req.session.userToken) {
+            res.json({ email, subscription });
+        } else {
+            res.json({ message: 'Not authorized' })
+     
         }
     }
 };

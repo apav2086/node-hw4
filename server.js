@@ -16,6 +16,7 @@ const sess = {
   saveUninitialized: true,
 };
 app.use(session(sess));
+
 mongoose.connect(DB_HOST)
  .then(() => {
 app.listen(PORT, () => {

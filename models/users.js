@@ -32,4 +32,4 @@ UserSchema.methods.checkPassword = async function (loginPW) {
 
 const User = model('users', UserSchema);
 
-module.exports = { User };
+module.exports = User;
